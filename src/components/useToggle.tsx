@@ -1,7 +1,17 @@
 import { useState } from "react";
 
-const useToggle = <T extends boolean>(initialValue: T) => {
-  return useState<T>(initialValue);
+const useToggle = (initialValue: boolean) => {
+  const [state, setState] = useState(initialValue);
+
+  const handleToggle = (value?: boolean) => {
+    if (value !== undefined) {
+      setState(value);
+    } else {
+      setState((prev) => !prev);
+    }
+  };
+
+  return { toggle: state, handleToggle };
 };
 
 export { useToggle };
